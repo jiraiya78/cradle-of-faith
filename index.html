@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>The Quiet Hours - A Text Adventure</title>
+        <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            body,
+            html {
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                background-color: #08080a;
+                font-family: "Courier New", Courier, monospace;
+                color: #d1d5db;
+            }
+            #graphicsCanvas {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 1;
+                pointer-events: none;
+            }
+            #uiContainer {
+                position: relative;
+                z-index: 2;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 20px;
+                background: linear-gradient(
+                    180deg,
+                    rgba(8, 8, 10, 0.4) 0%,
+                    rgba(8, 8, 10, 0.8) 100%
+                );
+            }
+            #storyBox {
+                max-width: 650px;
+                width: 100%;
+                background: rgba(15, 15, 20, 0.75);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 4px;
+                padding: 35px;
+                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+                backdrop-filter: blur(4px);
+            }
+            #textDisplay {
+                font-size: 1.1rem;
+                line-height: 1.7;
+                min-height: 150px;
+                margin-bottom: 30px;
+                white-space: pre-line;
+                color: #e5e7eb;
+            }
+            #choicesContainer {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+            button {
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                color: #9ca3af;
+                padding: 14px 20px;
+                font-family: "Courier New", Courier, monospace;
+                font-size: 0.95rem;
+                text-align: left;
+                cursor: pointer;
+                border-radius: 4px;
+                transition: all 0.25s ease;
+                opacity: 0;
+                animation: fadeInButton 0.5s ease forwards;
+            }
+            button:hover {
+                background: rgba(255, 255, 255, 0.08);
+                border-color: #3b82f6;
+                color: #ffffff;
+                transform: translateX(4px);
+                box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+            }
+            @keyframes fadeInButton {
+                to {
+                    opacity: 1;
+                }
+            }
+            .scanlines {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(
+                    rgba(18, 16, 16, 0) 50%,
+                    rgba(0, 0, 0, 0.25) 50%
+                );
+                background-size: 100% 4px;
+                z-index: 3;
+                pointer-events: none;
+            }
+            #audioStatus {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                z-index: 4;
+                font-size: 0.8rem;
+                color: rgba(255, 255, 255, 0.4);
+                background: transparent;
+                border: none;
+                cursor: pointer;
+            }
+            #audioStatus:hover {
+                color: #ffffff;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="graphicsCanvas"></canvas>
+        <div class="scanlines"></div>
+        <button id="audioStatus" onclick="toggleAudio()">🔊 Audio: Off</button>
+
+        <div id="uiContainer">
+            <div id="storyBox">
+                <div id="textDisplay">Initializing...</div>
+                <div id="choicesContainer"></div>
+            </div>
+        </div>
+
+        <script src="story.js"></script>
+        <script src="engine.js"></script>
+    </body>
+</html>
