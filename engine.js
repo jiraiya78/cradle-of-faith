@@ -50,6 +50,11 @@ function renderScene(sceneKey) {
     if (index < scene.text.length) {
       textDisplay.textContent += scene.text.charAt(index);
       index++;
+
+      // AUTO-SCROLL ACCORDINGLY ON MOBILE
+      // Gently scrolls the container to the bottom as text types out
+      uiContainer.scrollTop = uiContainer.scrollHeight;
+
       let delay = scene.text.charAt(index - 1) === "." ? 400 : 25;
       currentTypingTimeout = setTimeout(typeWriter, delay);
     } else {
@@ -63,6 +68,11 @@ function renderScene(sceneKey) {
         };
         choicesContainer.appendChild(button);
       });
+
+      // One final scroll adjustment to make sure the new buttons are fully visible
+      setTimeout(() => {
+        uiContainer.scrollTop = uiContainer.scrollHeight;
+      }, 50);
     }
   }
   typeWriter();
